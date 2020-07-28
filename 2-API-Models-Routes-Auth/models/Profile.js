@@ -7,11 +7,6 @@ const ProfileSchema = new mongoose.Schema({
 		// pass a reference to user model
 		ref: 'user',
 	},
-	// handle: {
-	// 	type: String,
-	// 	required: true,
-	// 	max: 40,
-	// },
 	company: {
 		type: String,
 	},
