@@ -1,8 +1,12 @@
 import React, { Fragment, useState } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { setAlert } from '../../actions/alert';
+import PropTypes from 'prop-types';
 // import axios from 'axios';
 
-const Register = () => {
+// destructure props - pull setAlert from it
+const Register = ({ setAlert }) => {
 	// setFormData - function we want to run to update our formData
 	const [formData, setFormData] = useState(
 		// default/initial state values
@@ -34,7 +38,10 @@ const Register = () => {
 		e.preventDefault();
 		// make sure that passwords match
 		if (password !== password2) {
-			console.log('Passwords do not match');
+			// console.log('Passwords do not match');
+
+			// this will pass string as a message, and type to our action in alert.js, this will generate an id, and dispatch setAlert with that message and type
+			setAlert('Passwords do not match', 'danger');
 		} else {
 			// // console.log(formData);
 			// // create a new user object
@@ -133,4 +140,9 @@ const Register = () => {
 	);
 };
 
-export default Register;
+Register.propTypes = {
+	setAlert: PropTypes.func.isRequired,
+};
+
+// whenever we want tu use action from redux, we want to pass it in a connect(any state we want to map, object with any actions we want to use), this will allow us to access props.setAlert
+export default connect(null, { setAlert })(Register);
